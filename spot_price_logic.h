@@ -1,6 +1,5 @@
 // Price logic for the spot price display. Plain C++ (no ESPHome), so it can be tested on the laptop.
-// Prices are c/kWh incl. VAT; times are UTC epoch seconds. Local time (for the day/night transfer fee) uses
-// localtime_r, so TZ must be set (ESPHome's time component does that; the tests call setenv/tzset).
+// Prices are c/kWh incl. VAT; times are UTC epoch seconds.
 #pragma once
 
 #include <cstdlib>
@@ -16,10 +15,7 @@ enum Colour { GREEN, YELLOW, RED, GREY };
 
 struct Settings {
   float margin = 0.49f;         // seller's margin, c/kWh incl. VAT (contract)
-  float transfer_day = 4.0f;    // transfer fee, day tariff (placeholder)
-  float transfer_night = 2.5f;  // transfer fee, night tariff (placeholder)
-  int day_start_hour = 7;       // day tariff from 07:00 ...
-  int day_end_hour = 22;        // ... until 22:00 local time
+  float transfer = 4.0f;        // transfer fee, same day and night (placeholder)
   float tax = 2.83f;            // electricity tax incl. VAT (check from the bill)
   float green_below = 10.0f;
   float red_from = 20.0f;
@@ -52,20 +48,8 @@ inline time_t parse_iso_utc(const char *s) {
   return (time_t) days_from_civil(y, mo, d) * 86400 + h * 3600 + mi * 60 + se;
 }
 
-inline int local_hour(time_t t) {
-  struct tm tm;
-  localtime_r(&t, &tm);
-  return tm.tm_hour;
-}
-
-inline float transfer_fee(const Settings &s, time_t start) {
-  int h = local_hour(start);
-  bool day = h >= s.day_start_hour && h < s.day_end_hour;
-  return day ? s.transfer_day : s.transfer_night;
-}
-
 inline float total_price(const Settings &s, const Slot &slot) {
-  return slot.spot + s.margin + transfer_fee(s, slot.start) + s.tax;
+  return slot.spot + s.margin + s.transfer + s.tax;
 }
 
 inline Colour colour_for(const Settings &s, float total) {

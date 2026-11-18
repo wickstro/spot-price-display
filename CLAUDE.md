@@ -9,7 +9,8 @@ know when not to run the washing machine or take a shower. Started 2026-11-18.
   (or a large area) takes the colour, not just a small dot.
 - **Total price, with transfer fees**, in c/kWh incl. VAT:
   `spot (incl. VAT) + seller's margin + transfer fee + electricity tax`. The fee values come from the user's
-  bills (not filled in yet; the transfer fee may differ day/night).
+  bills, all incl. VAT 25.5 %. Margin 0.49 c/kWh incl. VAT; transfer fee is the same day and night (value not
+  given yet).
 - **Colours:** green below 10 c/kWh, yellow 10–20, red from 20 c/kWh (total price). Limits are settings.
 - **Look:** "like the Fingrid app": the user wants display options similar to it. Not yet clarified what exactly
   (probably a bar chart of the coming prices coloured green/yellow/red + the price now). Ask before designing.

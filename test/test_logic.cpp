@@ -19,9 +19,6 @@ static int failures = 0;
 static bool near(float a, float b) { return std::fabs(a - b) < 1e-3f; }
 
 int main() {
-  setenv("TZ", "EET-2EEST,M3.5.0/3,M10.5.0/4", 1);  // Europe/Helsinki, as ESPHome sets it
-  tzset();
-
   // ISO parsing
   CHECK(parse_iso_utc("1970-01-01T00:00:00.000Z") == 0);
   CHECK(parse_iso_utc("2026-11-18T22:45:00.000Z") == 1795041900);
@@ -37,30 +34,14 @@ int main() {
   CHECK(colour_for(s, 20.0f) == RED);
   CHECK(colour_for(s, -3.0f) == GREEN);
 
-  // Day/night transfer: 2026-11-18 is winter time (UTC+2). 04:59 UTC = 06:59 local (night), 05:00 UTC = 07:00 (day)
-  time_t d0 = parse_iso_utc("2026-11-18T00:00:00Z");
-  CHECK(near(transfer_fee(s, d0 + 4 * 3600 + 45 * 60), s.transfer_night));
-  CHECK(near(transfer_fee(s, d0 + 5 * 3600), s.transfer_day));
-  CHECK(near(transfer_fee(s, d0 + 19 * 3600 + 45 * 60), s.transfer_day));   // 21:45 local
-  CHECK(near(transfer_fee(s, d0 + 20 * 3600), s.transfer_night));            // 22:00 local
-  // Summer time (UTC+3): 04:00 UTC = 07:00 local
-  time_t summer = parse_iso_utc("2026-07-01T04:00:00Z");
-  CHECK(near(transfer_fee(s, summer), s.transfer_day));
-  CHECK(near(transfer_fee(s, summer - 60), s.transfer_night));
-  // DST end 2026-10-25: 01:00 UTC = 03:00 EET (after the change); 00:59 UTC = 03:59 EEST. Both night.
-  time_t dst = parse_iso_utc("2026-10-25T00:00:00Z");
-  CHECK(local_hour(dst + 3600) == 3);
-  CHECK(local_hour(dst + 3540) == 3);
-  CHECK(local_hour(dst + 5 * 3600) == 7);  // 05:00 UTC = 07:00 EET
-  CHECK(near(transfer_fee(s, dst + 5 * 3600), s.transfer_day));
-
   // Total = spot + margin + transfer + tax
+  time_t d0 = parse_iso_utc("2026-11-18T00:00:00Z");
   Slot day_slot{d0 + 10 * 3600, 5.0f};
-  CHECK(near(total_price(s, day_slot), 5.0f + s.margin + s.transfer_day + s.tax));
+  CHECK(near(total_price(s, day_slot), 5.0f + s.margin + s.transfer + s.tax));
 
   // Table: added newest first (as the API lists them), stored sorted, duplicates replaced
   PriceTable t;
-  time_t base = d0 + 10 * 3600;  // 12:00 local, day tariff -> total = spot + 7.32
+  time_t base = d0 + 10 * 3600;  // total = spot + 7.32
   float spots[] = {8.0f, 8.0f, 13.0f, 1.0f, 2.0f};  // totals 15.32, 15.32, 20.32, 8.32, 9.32
   for (int i = 4; i >= 0; i--)
     CHECK(t.add(base + i * SLOT_SECONDS, spots[i]));

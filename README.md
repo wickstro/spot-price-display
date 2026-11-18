@@ -38,6 +38,6 @@ Board variants: if the colours are inverted or the picture is mirrored, change `
 | Setting | Value | From |
 |---|---|---|
 | Seller's margin | 0.49 c/kWh incl. VAT 25.5 % | electricity contract, given 2026-11-18 |
-| Transfer fee (day / night?) | ? c/kWh (day tariff 07–22 assumed) | grid company bill |
+| Transfer fee (same day and night) | ? c/kWh incl. VAT | grid company bill |
 | Electricity tax | ~2.8 c/kWh incl. VAT (check) | bill |
 | Green below / red from | 10 / 20 c/kWh | chosen 2026-11-18 |

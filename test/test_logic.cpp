@@ -56,12 +56,12 @@ int main() {
 
   // Total = spot + margin + transfer + tax
   Slot day_slot{d0 + 10 * 3600, 5.0f};
-  CHECK(near(total_price(s, day_slot), 5.0f + 0.5f + 4.0f + 2.83f));
+  CHECK(near(total_price(s, day_slot), 5.0f + s.margin + s.transfer_day + s.tax));
 
   // Table: added newest first (as the API lists them), stored sorted, duplicates replaced
   PriceTable t;
-  time_t base = d0 + 10 * 3600;  // 12:00 local, day tariff -> total = spot + 7.33
-  float spots[] = {8.0f, 8.0f, 13.0f, 1.0f, 2.0f};  // totals 15.33, 15.33, 20.33, 8.33, 9.33
+  time_t base = d0 + 10 * 3600;  // 12:00 local, day tariff -> total = spot + 7.32
+  float spots[] = {8.0f, 8.0f, 13.0f, 1.0f, 2.0f};  // totals 15.32, 15.32, 20.32, 8.32, 9.32
   for (int i = 4; i >= 0; i--)
     CHECK(t.add(base + i * SLOT_SECONDS, spots[i]));
   CHECK(t.count == 5);

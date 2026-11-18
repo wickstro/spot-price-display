@@ -15,7 +15,7 @@ static const int SLOT_SECONDS = 15 * 60;
 enum Colour { GREEN, YELLOW, RED, GREY };
 
 struct Settings {
-  float margin = 0.5f;          // seller's margin, c/kWh incl. VAT (placeholder)
+  float margin = 0.49f;         // seller's margin, c/kWh incl. VAT (contract)
   float transfer_day = 4.0f;    // transfer fee, day tariff (placeholder)
   float transfer_night = 2.5f;  // transfer fee, night tariff (placeholder)
   int day_start_hour = 7;       // day tariff from 07:00 ...

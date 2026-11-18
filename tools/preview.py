@@ -17,7 +17,7 @@ TZ = ZoneInfo("Europe/Helsinki")
 SLOT = 15 * 60
 
 # Same placeholders as the firmware's number entities.
-SETTINGS = dict(margin=0.5, transfer_day=4.0, transfer_night=2.5, day_start=7, day_end=22, tax=2.83,
+SETTINGS = dict(margin=0.49, transfer_day=4.0, transfer_night=2.5, day_start=7, day_end=22, tax=2.83,
                 green_below=10.0, red_from=20.0)
 
 GREEN, YELLOW, RED, GREY = (0x1E, 0xA0, 0x46), (0xF5, 0xC5, 0x18), (0xD6, 0x2A, 0x2A), (0x60, 0x60, 0x60)

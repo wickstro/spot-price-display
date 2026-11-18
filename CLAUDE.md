@@ -29,4 +29,5 @@ know when not to run the washing machine or take a shower. Started 2026-11-18.
 
 ## Git
 - Commit as Lotta Hardman <lotta.hardman@gmail.com> (set in this repo's config; the laptop's global identity is
-  the work address, never use it). No remote yet. Never push to the JCO Digital organisation.
+  the work address, never use it). Remote: github.com/wickstro/spot-price-display (private), via the SSH host
+  alias `github-wickstro` (wickstro key only). Never push to jcodigital / the JCO Digital organisation.

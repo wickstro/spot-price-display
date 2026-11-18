@@ -7,6 +7,7 @@
 
 substitutions:
   name: spot-price-display
+  friendly_name: Spot price display
   # Board variant: most CYDs are ILI9341. If colours look inverted, flip invert_colors.
   # If the picture is mirrored/upside down, change mirror_x / mirror_y.
   display_model: ILI9341
@@ -17,7 +18,7 @@ substitutions:
 
 esphome:
   name: ${name}
-  friendly_name: Spot price display
+  friendly_name: ${friendly_name}
   includes:
     - spot_price_logic.h
     - spot_state.h
@@ -33,7 +34,7 @@ wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
   ap:
-    ssid: "Spot price display"
+    ssid: "${friendly_name}"
     password: !secret ap_password
 
 captive_portal:

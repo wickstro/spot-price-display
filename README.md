@@ -32,6 +32,12 @@ g++ -std=c++17 -Wall -o /tmp/test_logic test/test_logic.cpp && /tmp/test_logic
 The fees and colour limits are settings on the board's web page (`http://spot-price-display.local/`), stored in
 flash. Without Wi-Fi it opens a hotspot "Spot price display" for setting up the network.
 
+Second display: build the same file with its own name, so the two don't clash on the network:
+```sh
+.venv/bin/esphome -s name spot-price-display-2 -s friendly_name "Spot price display 2" run spot-price-display.yaml
+```
+Its settings page is then `http://spot-price-display-2.local/`. Use the same `-s` options for later Wi-Fi updates.
+
 Board variants: if the colours are inverted or the picture is mirrored, change `invert_colors` / `mirror_x` /
 `mirror_y` at the top of the YAML. Some CYD variants use an ST7789 instead of an ILI9341 (`display_model`).
 

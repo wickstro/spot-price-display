@@ -34,21 +34,21 @@ int main() {
   CHECK(colour_for(s, 20.0f) == RED);
   CHECK(colour_for(s, -3.0f) == GREEN);
 
-  // Total = spot + margin + transfer + tax
+  // Total = spot + margin
   time_t d0 = parse_iso_utc("2026-11-18T00:00:00Z");
   Slot day_slot{d0 + 10 * 3600, 5.0f};
-  CHECK(near(total_price(s, day_slot), 5.0f + s.margin + s.transfer + s.tax));
+  CHECK(near(total_price(s, day_slot), 5.0f + s.margin));
 
   // Table: added newest first (as the API lists them), stored sorted, duplicates replaced
   PriceTable t;
-  time_t base = d0 + 10 * 3600;  // total = spot + 7.32
-  float spots[] = {8.0f, 8.0f, 13.0f, 1.0f, 2.0f};  // totals 15.32, 15.32, 20.32, 8.32, 9.32
+  time_t base = d0 + 10 * 3600;  // total = spot + 0.49
+  float spots[] = {15.0f, 15.0f, 20.0f, 8.0f, 9.0f};  // totals 15.49, 15.49, 20.49, 8.49, 9.49
   for (int i = 4; i >= 0; i--)
     CHECK(t.add(base + i * SLOT_SECONDS, spots[i]));
   CHECK(t.count == 5);
   for (int i = 1; i < t.count; i++)
     CHECK(t.slots[i - 1].start < t.slots[i].start);
-  CHECK(t.add(base, 8.0f) && t.count == 5);
+  CHECK(t.add(base, 15.0f) && t.count == 5);
   CHECK(!t.add(-1, 1.0f));
 
   CHECK(t.index_at(base - 1) == -1);

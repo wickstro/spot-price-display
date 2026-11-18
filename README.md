@@ -5,7 +5,8 @@ when to wait with the washing machine or the shower. It only shows the price; it
 
 ## Plan
 1. **Price:** fetch the 15-minute spot prices for Finland (porssisahko.net, today and tomorrow) a few times a day,
-   add the seller's margin, transfer fee and electricity tax, and colour each slot:
+   add the seller's margin (transfer fee and electricity tax are on the separate grid bill and left out), and
+   colour each slot:
    green under 10 c/kWh, yellow 10–20, red from 20 c/kWh.
 2. **Screen:** top half filled with the colour of the price now, the price in c/kWh in big digits and when it's
    green again; bottom half a bar chart of the next 12 h (48 quarter-hours) in green/yellow/red. Grey = no data.
@@ -38,6 +39,4 @@ Board variants: if the colours are inverted or the picture is mirrored, change `
 | Setting | Value | From |
 |---|---|---|
 | Seller's margin | 0.49 c/kWh incl. VAT 25.5 % | electricity contract, given 2026-11-18 |
-| Transfer fee (same day and night) | ? c/kWh incl. VAT | grid company bill |
-| Electricity tax | ~2.8 c/kWh incl. VAT (check) | bill |
 | Green below / red from | 10 / 20 c/kWh | chosen 2026-11-18 |

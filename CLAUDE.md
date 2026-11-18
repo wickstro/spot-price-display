@@ -7,13 +7,12 @@ know when not to run the washing machine or take a shower. Started 2026-11-18.
 - **Display only.** It reads prices and shows them; it never switches anything. Powered from a USB charger.
 - **Screen only**, no extra LED/light. The colour must be readable across the room, so the whole screen
   (or a large area) takes the colour, not just a small dot.
-- **Total price, with transfer fees**, in c/kWh incl. VAT:
-  `spot (incl. VAT) + seller's margin + transfer fee + electricity tax`. The fee values come from the user's
-  bills, all incl. VAT 25.5 %. Margin 0.49 c/kWh incl. VAT; transfer fee is the same day and night (value not
-  given yet).
-- **Colours:** green below 10 c/kWh, yellow 10–20, red from 20 c/kWh (total price). Limits are settings.
-- **Look:** "like the Fingrid app": the user wants display options similar to it. Not yet clarified what exactly
-  (probably a bar chart of the coming prices coloured green/yellow/red + the price now). Ask before designing.
+- **Price shown = electricity bill only**, c/kWh incl. VAT 25.5 %: `spot (incl. VAT) + seller's margin 0.49`.
+  Transfer fee and electricity tax are left out on purpose: they're on the separate grid company bill (decided
+  2026-11-18).
+- **Colours:** green below 10 c/kWh, yellow 10–20, red from 20 c/kWh (price shown). Limits are settings.
+- **Look** (decided 2026-11-18): top half filled with the colour now, big price, "green from HH:MM"; bottom half
+  a bar chart of the next 12 h (48 quarter-hours) coloured green/yellow/red.
 - Show when it's cheap again ("green from 14:15"). No data (Wi-Fi/API down, stale prices) → grey, never green.
 
 ## Price data

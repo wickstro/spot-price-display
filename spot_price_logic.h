@@ -15,8 +15,6 @@ enum Colour { GREEN, YELLOW, RED, GREY };
 
 struct Settings {
   float margin = 0.49f;         // seller's margin, c/kWh incl. VAT (contract)
-  float transfer = 4.0f;        // transfer fee, same day and night (placeholder)
-  float tax = 2.83f;            // electricity tax incl. VAT (check from the bill)
   float green_below = 10.0f;
   float red_from = 20.0f;
 };
@@ -49,7 +47,7 @@ inline time_t parse_iso_utc(const char *s) {
 }
 
 inline float total_price(const Settings &s, const Slot &slot) {
-  return slot.spot + s.margin + s.transfer + s.tax;
+  return slot.spot + s.margin;  // transfer fee and electricity tax are on the grid bill, not shown
 }
 
 inline Colour colour_for(const Settings &s, float total) {
